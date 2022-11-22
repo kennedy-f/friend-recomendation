@@ -1,13 +1,18 @@
 import * as express from 'express';
 import * as cors from 'cors';
 import {
+  ClearPersons,
   CreatePerson,
   FindByCpf,
-  getRecomendedFriends,
+  GetRecomendedFriends,
   PersonsInMemory,
   ValidateCpf,
-} from './src/modules/person';
-import { CreateRelations, RelationsInMemory } from './src/modules/relations';
+} from './src/modules/person/person';
+import {
+  ClearRelations,
+  CreateRelations,
+  RelationsInMemory,
+} from './src/modules/relations/relations';
 
 const app = express();
 const port = 3000;
@@ -45,8 +50,8 @@ app.get('/person/:cpf', (req, res) => {
 
 app.delete('/clean', (req, res) => {
   console.log('[GET] - Clean');
-  PersonsInMemory.splice(0, PersonsInMemory.length);
-  RelationsInMemory.splice(0, RelationsInMemory.length);
+  ClearPersons();
+  ClearRelations();
   return res.status(200).json({ msg: 'success' });
 });
 
@@ -65,22 +70,13 @@ app.get('/relations', (req, res) => {
 });
 
 app.get('/recommendations/:cpf', (req, res) => {
-  console.log('[get] - Relationship');
+  console.log('[get] - Recommendations');
   const { cpf } = req.params;
-  if (!ValidateCpf(cpf)) {
-    return res.status(400).json({ msg: 'Invalid CPF' });
-  }
-  const cpfExists = FindByCpf(cpf);
-
-  if (!cpfExists) {
-    return res.status(404).json({ msg: 'Not found' });
-  }
-
   try {
-    const recomendedFriends = getRecomendedFriends(cpf);
+    const recomendedFriends = GetRecomendedFriends(cpf);
     return res.json(recomendedFriends).status(200);
   } catch (err) {
-    return res.status(404);
+    return res.status(404).json({ msg: err.message });
   }
 });
 

@@ -5,9 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc5305a4-23c1-48c9-9e98-66138943d5dc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/person/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/person/person.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/relations/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/relations/relations.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/persons.mock.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/relations.mock.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/person.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/person.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/person.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/person/person.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/relations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/relations/relations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +57,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.jest.jest_package": "/Users/kennedyferreiradasilvaribeiro/Projects/personal/friend-recomendation/node_modules/jest",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/kennedyferreiradasilvaribeiro/Projects/personal/friend-recomendation/node_modules/prettier",
@@ -59,8 +70,89 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/modules/relations" />
+      <recent name="$PROJECT_DIR$/src/modules/persons" />
       <recent name="$PROJECT_DIR$/src/db/person" />
     </key>
+  </component>
+  <component name="RunManager" selected="Jest.Relations">
+    <configuration name="Relations" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/modules/relations/relations.spec.ts" />
+      <test-names>
+        <test-name value="Relations" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Relations.Should clear data" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/modules/relations/relations.spec.ts" />
+      <test-names>
+        <test-name value="Relations" />
+        <test-name value="Should clear data" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Relations.Should create a relation" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/modules/relations/relations.spec.ts" />
+      <test-names>
+        <test-name value="Relations" />
+        <test-name value="Should create a relation" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="person" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/modules/person/person.spec.ts" />
+      <test-names>
+        <test-name value="person" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="person.Should find recommend friends" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/modules/person/person.spec.ts" />
+      <test-names>
+        <test-name value="person" />
+        <test-name value="Should find recommend friends" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Relations" />
+        <item itemvalue="Jest.Relations.Should clear data" />
+        <item itemvalue="Jest.Relations.Should create a relation" />
+        <item itemvalue="Jest.person" />
+        <item itemvalue="Jest.person.Should find recommend friends" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -70,7 +162,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669075338948</updated>
-      <workItem from="1669075340499" duration="11830000" />
+      <workItem from="1669075340499" duration="14101000" />
     </task>
     <servers />
   </component>

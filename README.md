@@ -4,6 +4,8 @@ Simulação de recomendação de amigos.
 
 Já vem com alguns pre-setados 
 
+pra limpar os dados pre-setados só rodar a rota `clean`
+
 obs: seria melhor fazer tudo com classes, porém fiz com um pouco depressa. 
 ```javascript
  [

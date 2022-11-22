@@ -1,19 +1,9 @@
-import { Relations } from '../db/relations';
-import { Person } from '../db/person';
-import { sortByLength } from '../utils';
-import { RelationsInMemory } from './relations';
+import { Person } from '../../db/person';
+import { sortByLength } from '../../utils';
+import { RelationsInMemory } from '../relations';
+import { PersonsMock } from '../../test/persons.mock';
 
-export const PersonsInMemory: Person[] = [
-  { cpf: '11111111111', name: 'a' },
-  { cpf: '11111111112', name: 'b' },
-  { cpf: '11111111113', name: 'c' },
-  { cpf: '11111111114', name: 'd' },
-  { cpf: '11111111115', name: 'e' },
-  { cpf: '11111111116', name: 'f' },
-  { cpf: '11111111117', name: 'g' },
-  { cpf: '11111111118', name: 'h' },
-  { cpf: '11111111119', name: 'i' },
-];
+export const PersonsInMemory: Person[] = PersonsMock;
 
 export function ValidateCpf(cpf: string) {
   return cpf.length === 11;
@@ -23,7 +13,7 @@ export function FindByCpf(cpf: string) {
   if (ValidateCpf(cpf)) {
     return PersonsInMemory.find((person) => person.cpf === cpf);
   }
-  return false;
+  throw Error('Invalid CPF');
 }
 
 export function CreatePerson(data: { cpf: string; name: string }) {
@@ -40,7 +30,12 @@ export function CreatePerson(data: { cpf: string; name: string }) {
   return { cpf, name };
 }
 
-export function getRecomendedFriends(cpf: string) {
+export function GetRecomendedFriends(cpf: string) {
+  if (!ValidateCpf(cpf)) throw new Error('Invalid CPF');
+
+  const cpfExists = FindByCpf(cpf);
+  if (!cpfExists) throw new Error('Not found');
+
   const friends: Set<string> = new Set();
   if (RelationsInMemory.length === 0) {
     return [];
@@ -76,4 +71,8 @@ export function getRecomendedFriends(cpf: string) {
   });
 
   return [...new Set(sortByLength([...recomendations.values()])).values()];
+}
+
+export function ClearPersons() {
+  PersonsInMemory.splice(0, PersonsInMemory.length);
 }
