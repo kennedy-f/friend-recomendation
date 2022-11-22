@@ -1,88 +1,70 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import { Person } from './src/db/person';
-import { Relations } from './src/db/relations';
+import {
+  CreatePerson,
+  FindByCpf,
+  getRecomendedFriends,
+  PersonsInMemory,
+} from './src/modules/person';
+import { CreateRelations, RelationsInMemory } from './src/modules/relations';
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   return res.json({ working: true });
 });
 
-// just checking size
-function ValidateCpf(cpf: string) {
-  return cpf.length >= 11;
-}
-
-function FindByCpf(cpf: string) {
-  if (ValidateCpf(cpf)) {
-    return persons.find((person) => person.cpf === cpf);
-  }
-  return false;
-}
-
-const persons: Person[] = [
-  { cpf: '11111111111', name: 'a' },
-  { cpf: '11111111112', name: 'b' },
-  { cpf: '11111111113', name: 'c' },
-  { cpf: '11111111114', name: 'd' },
-  { cpf: '11111111115', name: 'e' },
-  { cpf: '11111111116', name: 'f' },
-];
-const relations: Relations[] = [
-  { cpf1: '11111111111', cpf2: '11111111112' },
-  { cpf1: '11111111111', cpf2: '11111111113' },
-  { cpf1: '11111111111', cpf2: '11111111115' },
-  { cpf1: '11111111112', cpf2: '11111111113' },
-  { cpf1: '11111111112', cpf2: '11111111114' },
-  { cpf1: '11111111115', cpf2: '11111111114' },
-  { cpf1: '11111111116', cpf2: '11111111112' },
-  { cpf1: '11111111116', cpf2: '11111111115' },
-  { cpf1: '11111111116', cpf2: '11111111113' },
-];
 app.post('/person', ({ body }, res) => {
+  console.log('[post] - /person');
   const { cpf, name } = body;
 
-  if (!cpf || !name) throw new Error('Wrong input');
-  if (ValidateCpf(cpf)) throw new Error('Invalid CPF');
-
-  const personAlreadyRegistered = FindByCpf(cpf);
-  if (personAlreadyRegistered) {
-    throw new Error('Person already registered');
+  try {
+    const person = CreatePerson({ cpf, name });
+    return res.json({ status: 'success' }).status(200);
+  } catch (err) {
+    return res.status(400).json({ msg: err.message });
   }
-
-  persons.push({ cpf, name });
-  return res.json({ status: 'success' }).status(200);
 });
 
 app.get('/person/:cpf', (req, res) => {
+  console.log(`[get] - /person/${req.params.cpf}`);
+
   const { cpf } = req.params;
   if (!cpf) throw new Error();
+  const person = FindByCpf(cpf);
+  if (!person) {
+    return res.status(404).json({ msg: 'Not found' });
+  }
+  return res.status(200).json(person);
 });
 
-app.get('/clean', () => {
-  persons.splice(0, persons.length);
+app.delete('/clean', (req, res) => {
+  console.log('[GET] - Clean');
+  PersonsInMemory.splice(0, PersonsInMemory.length);
+  RelationsInMemory.splice(0, RelationsInMemory.length);
+  return res.status(200).json({ msg: 'success' });
 });
 
 app.post('/relationship', (req, res) => {
   const { cpf1, cpf2 } = req.body;
-
-  const findFirstCpf = FindByCpf(cpf1);
-  const findSecondCpf = FindByCpf(cpf2);
-
-  if (!findFirstCpf || !findSecondCpf) {
-    return res.status(404);
+  try {
+    CreateRelations(cpf1, cpf2);
+    return res.json({ status: 'success' }).status(200);
+  } catch (err) {
+    return res.status(404).json({ msg: err.message });
   }
+});
 
-  relations.push({ cpf1, cpf2 });
-
-  return res.json({ status: 'success' }).status(200);
+app.get('/relations', (req, res) => {
+  res.status(200).json(RelationsInMemory);
 });
 
 app.get('/relationship/:cpf', (req, res) => {
+  console.log('[get] - Relationship');
   const { cpf } = req.params;
   const cpfExists = FindByCpf(cpf);
 
@@ -90,9 +72,12 @@ app.get('/relationship/:cpf', (req, res) => {
     return res.status(404);
   }
 
-  getRecomendedFriends(cpf);
-
-  return res.json().status(200);
+  try {
+    const recomendedFriends = getRecomendedFriends(cpf);
+    return res.json(recomendedFriends).status(200);
+  } catch (err) {
+    return res.status(404);
+  }
 });
 
 app.listen(port, () => {
