@@ -5,6 +5,7 @@ import {
   FindByCpf,
   getRecomendedFriends,
   PersonsInMemory,
+  ValidateCpf,
 } from './src/modules/person';
 import { CreateRelations, RelationsInMemory } from './src/modules/relations';
 
@@ -63,13 +64,16 @@ app.get('/relations', (req, res) => {
   res.status(200).json(RelationsInMemory);
 });
 
-app.get('/relationship/:cpf', (req, res) => {
+app.get('/recommendations/:cpf', (req, res) => {
   console.log('[get] - Relationship');
   const { cpf } = req.params;
+  if (!ValidateCpf(cpf)) {
+    return res.status(400).json({ msg: 'Invalid CPF' });
+  }
   const cpfExists = FindByCpf(cpf);
 
   if (!cpfExists) {
-    return res.status(404).json({ msg: 'not found' });
+    return res.status(404).json({ msg: 'Not found' });
   }
 
   try {

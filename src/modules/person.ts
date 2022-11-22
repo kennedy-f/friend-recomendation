@@ -15,7 +15,7 @@ export const PersonsInMemory: Person[] = [
   { cpf: '11111111119', name: 'i' },
 ];
 
-function ValidateCpf(cpf: string) {
+export function ValidateCpf(cpf: string) {
   return cpf.length === 11;
 }
 

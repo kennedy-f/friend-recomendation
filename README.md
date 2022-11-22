@@ -1,7 +1,10 @@
 # Friend Recomendation
 
 Simulação de recomendação de amigos.
+
 Já vem com alguns pre-setados 
+
+obs: seria melhor fazer tudo com classes, porém fiz com um pouco depressa. 
 ```javascript
  [
   { cpf: '11111111111', name: 'a' },
@@ -31,7 +34,7 @@ Já vem com alguns pre-setados
 ];
 ```
 
-#### How to run | Como rodar
+#### Como rodar
 ```shell
 npm i 
 npm run start
@@ -42,8 +45,6 @@ yarn install
 yarn start
 ```
 
-#### Rotas
-Como descritas no teste
 
 ----
 ### [GET] Find user by cpf
@@ -104,7 +105,7 @@ localhost:3000/relationship
 ### [GET] Find Recomended friends
 
 ```html
-localhost:3000/relationship/:cpf
+localhost:3000/recommendations/:cpf
 ```
 
 #### response
