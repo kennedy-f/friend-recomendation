@@ -1,0 +1,9 @@
+{
+  "name": "friend-recomendation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kennedy-f/friend-recomendation",
+  "author": "Kennedy Ribeiro",
+  "license": "MIT",
+  "private": false
+}
