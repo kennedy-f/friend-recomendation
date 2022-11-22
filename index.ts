@@ -69,7 +69,7 @@ app.get('/relationship/:cpf', (req, res) => {
   const cpfExists = FindByCpf(cpf);
 
   if (!cpfExists) {
-    return res.status(404);
+    return res.status(404).json({ msg: 'not found' });
   }
 
   try {

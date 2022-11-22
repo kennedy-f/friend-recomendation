@@ -42,12 +42,19 @@ export function CreatePerson(data: { cpf: string; name: string }) {
 
 export function getRecomendedFriends(cpf: string) {
   const friends: Set<string> = new Set();
+  if (RelationsInMemory.length === 0) {
+    return [];
+  }
 
   RelationsInMemory.forEach(({ cpf1, cpf2 }) => {
     if (cpf1 === cpf || cpf2 === cpf) {
       friends.add(cpf1 === cpf ? cpf2 : cpf1);
     }
   });
+
+  if (friends.size === 0) {
+    return [];
+  }
 
   const recomendations: Map<string, string[]> = new Map();
 
